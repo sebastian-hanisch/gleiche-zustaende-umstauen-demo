@@ -7,7 +7,7 @@ Sechstes Stück der Konzepte-Reihe **„Umstauen: Untergrenze und Suche“** fü
 
 ## Warum dieses Problem
 
-Die Hypothese lag nahe: „Gleiche Konfigurationen zusammenfassen halbiert die Knotenzahl oder besser.“ Die Messung widerlegt sie **zweimal**: Für den Baum ohne Untergrenze ist die Wiederholung um Größenordnungen größer als „halbiert“ (der Baum hat bei 4 × 3 im Median 39 414 Knoten, aber nur 88 verschiedene Zustände), für IDA\* mit Untergrenze bringt das Merken im Median **nichts** (1,00- bis 1,33-Fache). Und die Wiederholung kommt fast nur aus **Mehrfachwegen**, nicht aus Symmetrie (Stapelvertauschen: 1,0- bis 1,3-Fache). **Die Untergrenze und das Zustandsmerken beseitigen dieselbe Wiederholung.**
+Die Hypothese lag nahe: „Gleiche Konfigurationen zusammenfassen halbiert die Knotenzahl oder besser.“ Die Messung widerlegt sie **zweimal**: Für den Baum ohne Untergrenze ist die Wiederholung um Größenordnungen größer als „halbiert“ (der Baum hat bei 4 × 3 im Median 39 414 Knoten, aber nur 88 verschiedene Zustände), für IDA\* mit Untergrenze bringt das Merken im Median höchstens das **1,33-Fache** (in sechs von neun Zellen nichts); der Gewinn steckt im Schwanz (5 × 4: im Mittel das 4,32-Fache). Und die Wiederholung kommt fast nur aus **Mehrfachwegen**, nicht aus Symmetrie (Stapelvertauschen: 1,0- bis 1,3-Fache). **Im Median beseitigt die Untergrenze fast alle Wiederholungen, die das Merken beseitigen würde; im Schwanz bringt das Merken darüber hinaus noch viel.**
 
 ## Modell
 
@@ -87,9 +87,9 @@ Verhältnisse je Bucht (Knoten ohne / Knoten mit), dann Median, Mittel, Maximum 
 |---|---|
 | **Wie viele Zustände sind gleich?** | Der Baum der vollen Aufzählung hat im Median das **2,2- bis 521 892-Fache** der Knoten gegenüber den verschiedenen Zuständen: 2,2 bei 3 × 2, 7,7 bei 4 × 2, 10 bei 3 × 3, 77 bei 5 × 2, 90 bei 3 × 4, 505 bei 4 × 3, 185 826 bei 5 × 3, 521 892 bei 4 × 4. Bei 4 × 3 hat der Baum 39 414 Knoten und 88 Zustände, bei 5 × 3 160 Millionen und 665, bei 4 × 4 zwei Milliarden und 1 948. |
 | **Woher kommt die Wiederholung?** | Fast nur aus **Mehrfachwegen** (derselbe Zustand auf verschiedenen Wegen, zum Beispiel ein Container zuerst auf Stapel A und später auf B oder gleich auf B). Die **Stapelsymmetrie** erklärt im Median nur das 1,00- bis 1,33-Fache (Maximum je Zelle 1,62 bis 9,91). |
-| **Was bringt der Symmetriebruch (leere Stapel)?** | Für IDA\* im Median **nichts** (1,00 in allen neun Zellen), im Mittel höchstens das 1,01-Fache, im Maximum 1,30 (3 × 4); in 0 bis 15 % der Buchten ein Gewinn. Für die volle Aufzählung dagegen viel (Gegenbeispiel aus Stück 1: 153 auf 87 Knoten). |
+| **Was bringt der Symmetriebruch (leere Stapel)?** | Für IDA\* im Median **nichts** (1,00 in allen neun Zellen), im Mittel höchstens das 1,01-Fache, im Maximum 1,30 (3 × 4); in 0 bis 15 % der Buchten ein Gewinn. Für die volle Aufzählung dagegen spürbar (Median 1,1- bis 1,7-fach bei 3 × 2, 4 × 2, 3 × 3; Gegenbeispiel aus Stück 1: 153 auf 87 Knoten). |
 | **Was bringt das Zustandsmerken für IDA\*?** | Im Median 1,00 bis 1,33-fach (1,00 in sechs von neun Zellen, 1,17 bei 3 × 4 und 5 × 4, 1,33 bei 4 × 4), im Mittel bis 1,50 bei 4 × 4, **aber 4,32 bei 5 × 4**, im Maximum **44,6 bei 5 × 4** (Bucht 1: 400 339 gegen 8 975 Knoten). Der Gewinn liegt im **Schwanz**. Treffer des Merkens: im Median höchstens 4,4 % der Knoten. |
-| **Ersetzt das Merken die Untergrenze?** | Nein. Branch and Bound **ohne** Untergrenze mit Merken braucht im Median das **1,7- bis 25-Fache** der Knoten von IDA\* ohne Merken (3 × 3: 1,7, 4 × 3: 6,2, 3 × 4: 2,0, 5 × 3: 25, 4 × 4: 14), die volle Aufzählung mit Merken das 2,9- bis 100-Fache. Branch and Bound **mit** Untergrenze und Merken liegt gleichauf: IDA\* ohne Merken braucht das 0,56- bis 1,75-Fache seiner Knoten. Untergrenze und Merken beseitigen **dieselbe** Wiederholung; wer die Untergrenze hat, braucht das Merken im Median nicht. |
+| **Ersetzt das Merken die Untergrenze?** | Nein. Branch and Bound **ohne** Untergrenze mit Merken braucht im Median das **1,7- bis 25-Fache** der Knoten von IDA\* ohne Merken (3 × 3: 1,7, 4 × 3: 6,2, 3 × 4: 2,0, 5 × 3: 25, 4 × 4: 14), die volle Aufzählung mit Merken das 2,8- bis 84-Fache. Branch and Bound **mit** Untergrenze und Merken liegt im Median nah beieinander: IDA\* ohne Merken braucht das 0,56- bis 1,75-Fache seiner Knoten. Untergrenze und Merken beseitigen im Median zum großen Teil **dieselbe** Wiederholung; wer die Untergrenze hat, braucht das Merken im Median kaum; im Schwanz lohnt es sich weiter. |
 | **Wie groß wird die Tabelle des Merkens?** | Bei IDA\* im Median 2 bis 77 Zustände (Maximum 5 bis 10 395), bei der Aufzählung mit Merken im Median 21 bis 1 589 (Maximum 374 bis 230 570). |
 | **Wie weit trägt der Zustandsraum?** | Er ist klein und wächst mit einem **schweren Schwanz**: Median 29 Zustände bei 3 × 3, 1 022 bei 5 × 3, 2 108 bei 4 × 4, 380 533 bei 5 × 4; je eine von fünf Buchten bei 4 × 4 und 5 × 4 hat mehr als 3 Millionen. Sehr grob (5 Buchten). |
 | **Die Mini-Bucht** | (1, 4), (5, 2), (6, 3), Höchsthöhe 4: der Baum hat **9 Knoten und 4 verschiedene Zustände**: die Ausgangsbucht, `() \| (5, 2, 4) \| (6, 3)` (die 4 auf Stapel 2), `() \| (5) \| (6, 3, 4)` (die 4 auf Stapel 3) und die leere Bucht. Der dritte Zustand wird **zweimal** erreicht (aus der Ausgangsbucht mit 1 Hub, aus dem zweiten Zustand mit 2 Hüben), die leere Bucht fünfmal. IDA\* braucht mit und ohne Merken 6 Knoten. Die volle Aufzählung mit Merken in der Reihenfolge der engsten Passung: 7 Knoten, 3 Blätter, 1 Treffer (in der Reihenfolge der Stapelnummern kommt der Zustand zuerst über den längeren Weg und wird erneut bearbeitet: 9 Knoten, kein Treffer). |
@@ -97,7 +97,7 @@ Verhältnisse je Bucht (Knoten ohne / Knoten mit), dann Median, Mittel, Maximum 
 
 **Presets** (Eigenschaften in `tests/test_presets.py`): „Alltag“ (3 × 3, Bucht 12: Baum 229 Knoten, 20 Zustände (18), IDA\* 11 Knoten, mit Merken 11), „Die Mini-Bucht“ (3 × 2, Bucht 223: 9 Knoten, 4 Zustände), „Fast nur Wiederholung“ (4 × 3, Bucht 3: Baum 2 703 457 Knoten, 1 028 Zustände (619), IDA\* 26 Knoten), „Wo das Merken hilft“ (5 × 4, Bucht 1: IDA\* 400 339 Knoten, mit Merken 8 975, das 44,6-Fache; der Baum wird nicht gezählt, mehr als 100 000 Zustände; die Berechnung dauert rund 20 Sekunden).
 
-**Zeit (nur diese Einzelmessung, Windows, ein Lauf, Prototyp der Phase 0 in Python, nicht die Demo und nicht in der CI):** IDA\* ohne gegen mit kanonischem Merken, Gesamtzeit über die Buchten: 3 × 3 1,15-mal schneller, 4 × 4 1,45-mal, 5 × 4 **8,8-mal** (Knoten insgesamt 10,1-mal weniger). Je 1000 Knoten kostet das Merken rund 15 bis 20 % mehr (19 gegen 20, 25 gegen 29, 24 gegen 28 ms). Im Median je Bucht kein Unterschied (5 × 4: 10,8 gegen 11,3 ms): **die Zeit gewinnt der Schwanz.**
+**Zeit (nur diese Einzelmessung, Windows, ein Lauf, Prototyp der Phase 0 in Python, nicht die Demo und nicht in der CI):** IDA\* ohne gegen mit kanonischem Merken, Gesamtzeit über die Buchten: 3 × 3 1,15-mal schneller, 4 × 4 1,45-mal, 5 × 4 **8,8-mal** (Knoten insgesamt 10,1-mal weniger). Je 1000 Knoten kostet das Merken in dieser Messung 5 bis 17 % mehr (19 gegen 20, 25 gegen 29, 24 gegen 28 ms); der Aufschlag ist maschinenabhängig und nicht stabil. Im Median je Bucht kein Unterschied (5 × 4: 10,8 gegen 11,3 ms): **die Zeit gewinnt der Schwanz.**
 
 ## Ehrliche Grenzen
 
@@ -165,7 +165,7 @@ pip install -r requirements-dev.txt
 pytest tests/ -v
 ```
 
-123 Tests, rund eine Minute.
+123 Tests, rund 240 Sekunden (eine Messung unter Windows).
 
 Gebaut mit Streamlit und Plotly.
 

@@ -321,7 +321,7 @@ with st.expander("📐 Mathematische Formulierung"):
 
 **Aufspaltung der Wiederholung.** $\dfrac{\text{Knoten}}{\text{kanonische Zustände}} = \dfrac{\text{Knoten}}{\text{rohe Zustände}} \cdot \dfrac{\text{rohe Zustände}}{\text{kanonische Zustände}}$: der erste Faktor sind die Mehrfachwege, der zweite die Stapelsymmetrie.
 
-**Warum die Untergrenze und das Merken sich ersetzen.** Die Untergrenze schneidet Knoten ab, deren Hubzahl schon das Budget sprengt; das sind vor allem Wege, die Container mehrfach bewegen und deshalb im selben Zustand enden wie kürzere. Was das Merken streichen würde, hat die Untergrenze meist schon gestrichen. Das ist ein Messbefund (siehe die Tabellen), kein Satz.
+**Warum die Untergrenze und das Merken sich im Median ersetzen.** Die Untergrenze schneidet Knoten ab, deren Hubzahl schon das Budget sprengt; das sind wohl vor allem Wege, die Container mehrfach bewegen und deshalb im selben Zustand enden wie kürzere (der Mechanismus ist nicht direkt gemessen). Was das Merken streichen würde, hat die Untergrenze im Median meist schon gestrichen; im Schwanz bringt das Merken darüber hinaus noch viel. Das ist ein Messbefund (siehe die Tabellen), kein Satz.
 
 **Literatur.** Das Problem heißt in der Literatur Block Relocation Problem. Die Literatur zu Transpositionstabellen und Symmetriebrechung für dieses Problem wurde nicht gelesen; die Verfahren und die Zählung sind hier selbst gebaut.
         """

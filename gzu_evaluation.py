@@ -255,7 +255,7 @@ def verdict_ida(stats: dict) -> tuple[str, str]:
         return "success", text + " Der Gewinn liegt im Schwanz: wenige schwere Buchten."
     if c["median"] >= C.MEMO_NOTICEABLE:
         return "info", text + " Das Merken ist hier auch im Median spürbar."
-    return "info", text + " Das Merken bringt hier kaum etwas: Die Untergrenze hat die Wiederholungen schon beseitigt."
+    return "info", text + " Das Merken bringt hier im Median kaum etwas: Die Untergrenze hat die Wiederholungen meist schon beseitigt."
 
 
 def verdict_symmetry_break(stats: dict) -> tuple[str, str]:
